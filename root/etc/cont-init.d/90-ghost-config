@@ -1,0 +1,26 @@
+#!/usr/bin/with-contenv bash
+
+cat <<"EOF"
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+         _               _
+    __ _| |__   ___  ___| |_
+   / _` | '_ \ / _ \/ __| __/
+  | (_| | | | | (_) \__ \ |_
+   \__, |_|_|_|\___/|___/\__|
+   |___/      /   _ \
+          (¯\| o (@) |/¯)
+           \_  .___.  _/
+            /   !_!   \
+           /_.--._.--._\
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+EOF
+
+# only chown the /config directory if it is not owned by abc:abc
+CHOWN_DIR=/config
+DIR_OWNER=`stat -c "%U:%G" $CHOWN_DIR`
+if [[ $DIR_OWNER != "abc:abc" ]]
+then
+    echo "chowning $CHOWN_DIR please be patient"
+    chown -R abc:abc $CHOWN_DIR
+fi
