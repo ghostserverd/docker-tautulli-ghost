@@ -16,6 +16,16 @@ cat <<"EOF"
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 EOF
 
+# only chown the scripts directory if it is not owned by abc:abc
+SCRIPTS_DIR=/app/tautulli/scripts
+DIR_OWNER=`stat -c "%U:%G" $SCRIPTS_DIR`
+if [[ $DIR_OWNER != "abc:abc" ]]
+then
+    echo "chowning $SCRIPTS_DIR please be patient"
+    chown -R abc:abc $SCRIPTS_DIR
+fi
+chmod -R +x $SCRIPTS_DIR/*/*.py
+
 # only chown the /config directory if it is not owned by abc:abc
 CHOWN_DIR=/config
 DIR_OWNER=`stat -c "%U:%G" $CHOWN_DIR`
